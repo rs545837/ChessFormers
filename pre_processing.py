@@ -54,5 +54,5 @@ def preprocess_kaggle():
                 
                 
 if __name__ == "__main__":
-    tprint("ChePT Preprocessor")
+    tprint("ChessFormers PreProcessor")
     preprocess_kaggle()
