@@ -19,3 +19,10 @@ The pre_processing.py file outputs the sequence of all the moves taken in the ch
 
 > [!NOTE]  
 > A single game in multiple lines.
+
+## SelfAttention Module 
+## Model Architecture
+## FineTuning Module
+## Trainer Module
+## Top Module (To Run the whole Project)
+## Analysis Module 
