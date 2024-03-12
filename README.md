@@ -14,6 +14,7 @@ The pre_processing.py file outputs the sequence of all the moves taken in the ch
 > Each game occupying a single line.
 
 ***This is how the output of the processed_dataset of KingBase Games looks like:***
+
 <img width="318" alt="Screenshot 2024-03-11 at 5 38 16 PM" src="https://github.com/rs545837/ChessFormers/assets/114828377/a3310ba9-997a-42e9-8138-54380102e263">
 > [!NOTE]  
 > A single game in multiple lines.
