@@ -16,7 +16,7 @@ def preprocess_kaggle():
 
 
     # check if this file has already been preprocessed
-    if os.path.exists("./dataset/processed_kaggle.txt"):
+    if os.path.exists(".data/datasets-cleaned/kaggle_cleaned.txt"):
         response = questionary.confirm("It appears that the kaggle file has already been preprocessed; reprocess?").ask()
         if not response:
             return
