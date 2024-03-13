@@ -28,6 +28,9 @@ Causal self-attention ensures that the outputs for a certain position in a seque
 ## Model Architecture
 To understand about the model architecture and how to build GPT from scratch, check out my other repository [here](https://github.com/rs545837/GPT-1_Implementation).
 
+Below is a picture explaining of how GPT model is being used for text prediction and also explains the Block class defined by us in the code.
+<img width="536" alt="Screenshot 2024-03-13 at 11 34 59 AM" src="https://github.com/rs545837/ChessFormers/assets/114828377/a885ff24-9925-4f93-a40c-710c4ca24430">
+
 ## FineTuning Module
 ### Finetune_Early, Finetune_Middle, Finetune_Late, Commentary_Dataset, PretrainDataset:
 These classes inherit from the torch.utils.data.Dataset class, making them compatible with PyTorch's DataLoader.
