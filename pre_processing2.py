@@ -31,7 +31,7 @@ def preprocess_kingbase():
 
         os.remove("./data/datasets-cleaned/kingbase_cleaned.txt")
 
-    unprocessed_kingbase_lines = open("./dataset/kingbase1.txt", "r").readlines()
+    unprocessed_kingbase_lines = open("./dataset/kingbase-ftfy.txt", "r", errors="replace").readlines()
 
     processed_kingbase_lines = open("./data/datasets-cleaned/kingbase_cleaned.txt", "w")
 

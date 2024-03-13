@@ -23,7 +23,7 @@ def preprocess_kaggle():
         os.remove("./dataset/processed_kaggle.txt")
     
     with open(f"data/datasets-cleaned/kaggle_cleaned.txt", "w", encoding="utf-8") as outf:
-        with open("dataset/kaggle1.txt", "r", encoding="utf-8") as inpf:
+        with open("dataset/kaggle.txt", "r", encoding="utf-8") as inpf:
             for line in inpf:
                 try:
                     ostr = line.split("###")[1].strip()
