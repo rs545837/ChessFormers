@@ -20,9 +20,38 @@ The pre_processing.py file outputs the sequence of all the moves taken in the ch
 > [!NOTE]  
 > A single game in multiple lines.
 
-## SelfAttention Module 
+## Causal SelfAttention Module 
+Causal self-attention ensures that the outputs for a certain position in a sequence is based only on the known outputs at previous positions and not on future positions. In simpler terms, it ensures that the prediction for each next word should only depend on the preceding words. To achieve this in GPT-like LLMs, for each token processed, we mask out the future tokens, which come after the current token in the input text.
+
+The application of a causal mask to the attention weights for hiding future input tokens in the inputs is illustrated in the figure below.
+
 ## Model Architecture
 ## FineTuning Module
+### Finetune_Early, Finetune_Middle, Finetune_Late, Commentary_Dataset, PretrainDataset:
+These classes inherit from the torch.utils.data.Dataset class, making them compatible with PyTorch's DataLoader.
+Each class represents a different dataset for specific stages of finetuning or pretraining.
+The `__init__` method initializes the dataset with relevant parameters and processes the input data.
+The `__len__` method returns the length of the dataset.
+The `__getitem__` method retrieves an item from the dataset at a given index.
+
+### Directory:
+This class acts as a directory or factory for creating different datasets based on the version specified.
+The `__init__` method stores information about the dataset, version, configuration arguments, and pretraining vocabulary.
+The `__call__` method dynamically selects the appropriate dataset class based on the specified version and returns an instance of that class.
+
+### PretrainDataset:
+This class represents the dataset used for the initial pretraining stage.
+It prepares the data by encoding it into tensors of integers based on a character-to-index mapping.
+The `__getitem__` method returns input-output pairs, where each input and output are subsequences of the original text shifted by one position.
+
+### finetune_versions:
+This dictionary maps version numbers to the corresponding finetuning dataset classes.
+
+### Main Section:
+In the main section, a sample of game data is loaded from a file.
+An instance of the PretrainDataset class is created with the sample data.
+The `__main__` block demonstrates how to use the code, creating and printing an instance of the PretrainDataset class.
+
 ## Trainer Module
 ## Top Module (To Run the whole Project)
 ## Analysis Module 
