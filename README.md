@@ -4,6 +4,8 @@ This deep transformer architecture observes strings of Portable Game Notation (P
 
 Dataset Used: [3.5 Million Chess Games dataset](https://www.kaggle.com/datasets/milesh1/35-million-chess-games/data) and the [KingBase Chess Dataset](https://archive.org/details/KingBase2019)
 
+To access the cleaned chess dataset, download it from [here](https://kaggle.com/datasets/7b41a446c9290f868f6a8414da1cefb486dbbd9228e19fe319e798789a1fcee1).
+
 
 ## Pre_Processing
 The pre_processing.py file outputs the sequence of all the moves taken in the chess games and removes all the unnecessary characters and words from the chess game sequences present in the 3.5-million-chess-games dataset.
