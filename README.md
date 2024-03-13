@@ -26,6 +26,8 @@ Causal self-attention ensures that the outputs for a certain position in a seque
 <img width="492" alt="Screenshot 2024-03-13 at 11 05 33 AM" src="https://github.com/rs545837/ChessFormers/assets/114828377/a7a89776-0191-4f82-a931-477afe756425">
 
 ## Model Architecture
+To understand about the model architecture and how to build GPT from scratch, check out my other repository [here](https://github.com/rs545837/GPT-1_Implementation).
+
 ## FineTuning Module
 ### Finetune_Early, Finetune_Middle, Finetune_Late, Commentary_Dataset, PretrainDataset:
 These classes inherit from the torch.utils.data.Dataset class, making them compatible with PyTorch's DataLoader.
