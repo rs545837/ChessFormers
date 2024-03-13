@@ -248,8 +248,12 @@ class PretrainDataset(Dataset):
         if '\n' in chars:
             chars.remove('\n')
 
-        self.stoi = pretrain_vocab['stoi']
-        self.itos = pretrain_vocab['itos']
+        if pretrain_vocab is None:
+            self.stoi = {ch: i for i, ch in enumerate(chars)}
+            self.itos = {i: ch for i, ch in enumerate(chars)}
+        else:
+            self.stoi = pretrain_vocab['stoi']
+            self.itos = pretrain_vocab['itos']
 
         assert len(self.stoi) == len(self.itos)
 
