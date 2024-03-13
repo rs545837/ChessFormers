@@ -23,7 +23,7 @@ The pre_processing.py file outputs the sequence of all the moves taken in the ch
 ## Causal SelfAttention Module 
 Causal self-attention ensures that the outputs for a certain position in a sequence is based only on the known outputs at previous positions and not on future positions. In simpler terms, it ensures that the prediction for each next word should only depend on the preceding words. To achieve this in GPT-like LLMs, for each token processed, we mask out the future tokens, which come after the current token in the input text.
 
-The application of a causal mask to the attention weights for hiding future input tokens in the inputs is illustrated in the figure below.
+<img width="492" alt="Screenshot 2024-03-13 at 11 05 33 AM" src="https://github.com/rs545837/ChessFormers/assets/114828377/a7a89776-0191-4f82-a931-477afe756425">
 
 ## Model Architecture
 ## FineTuning Module
