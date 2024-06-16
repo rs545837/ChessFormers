@@ -1,16 +1,13 @@
-""" Utilities; we suggest changing none of these functions
-
-but feel free to add your own.
-"""
-
 import random
 import numpy as np
 import torch
 from torch.nn import functional as F
 import json
+import os
+import questionary
 
 default_config_args = {
-    "block_size": 512,
+    "block_size": 256,
     "n_layer": 12,
     "n_head": 32,
     "n_embed": 256
@@ -18,9 +15,11 @@ default_config_args = {
 
 default_train_args = {
     "max_epochs": 1,
-    "batch_size": 8,
+    "batch_size": 10,
+    "grad_norm_clip": 1.0,
     "learning_rate": 1e-3,
-    "num_workers": 4
+    "num_workers": 4,
+    "save_interval": 1000,
 }
 
 
@@ -80,12 +79,6 @@ def top_k_logits(logits, k):
 
 @torch.no_grad()
 def sample(model, x, steps, temperature=1.0, sample=False, top_k=None):
-    """
-    take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
-    the sequence, feeding the predictions back into the model each time. Clearly the sampling
-    has quadratic complexity unlike an RNN that is only linear, and has a finite context window
-    of block_size, unlike an RNN that has an infinite context window.
-    """
     block_size = model.get_block_size()
     model.eval()
     for k in range(steps):
@@ -108,25 +101,25 @@ def sample(model, x, steps, temperature=1.0, sample=False, top_k=None):
 
     return x
 
+# Get the most recent parameters file from the ckpts
+def get_recent_ckpt(ckpt_dir):
 
-def evaluate_places(filepath, predicted_places):
-  """ Computes percent of correctly predicted birth places.
+    if not os.path.isdir(ckpt_dir):
+        raise ValueError(f"Default checkpoint dir at {ckpt_dir} missing!")
 
-  Arguments:
-    filepath: path to a file with our name, birth place data.
-    predicted_places: a list of strings representing the 
-        predicted birth place of each person.
+    files = os.listdir(ckpt_dir)
+    if 'best_loss.pt' in files:
+        answer = questionary.confirm("File best_loss.pt found. Use this file?").ask()
+        if answer:
+            return os.path.join(ckpt_dir, 'best_loss.pt')
+    epoch_list = [x for x in files if 'epoch' in x]
+    if len(epoch_list) > 0:
+        answer = questionary.confirm("Epoch files found. Use best epoch file?").ask()
+        if answer:
+            epoch_list.sort(key=lambda x: int(x.split('_')[1].split('.')[0]), reverse=True)
+            return os.path.join(ckpt_dir, epoch_list[0])
 
-  Returns: (total, correct), floats
-  """
-  with open(filepath) as fin:
-    lines = [x.strip().split('\t') for x in fin]
-    if len(lines[0]) == 1:
-      print('No gold birth places provided; returning (0,0)')
-      return (0,0)
-    true_places = [x[1] for x in lines]
-    total = len(true_places)
-    assert total == len(predicted_places)
-    correct = len(list(filter(lambda x: x[0] == x[1],
-      zip(true_places, predicted_places))))
-    return (float(total),float(correct))
+    iter_list = [x for x in files if 'iter' in x]
+    iter_list.sort(key=lambda x: int(x.split('_')[1].split('.')[0]), reverse=True)
+
+    return os.path.join(ckpt_dir, iter_list[0])
